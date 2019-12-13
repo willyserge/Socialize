@@ -27,8 +27,11 @@ const Posts={
                 data: posts
                 
             })
-        } catch (e) {
-            res.status(500).send()
+        } catch (error) {
+            res.status(500).send({
+                status:500,
+                error
+            })
         }
 
     }
