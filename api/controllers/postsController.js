@@ -17,6 +17,20 @@ const Posts={
         } catch (error) {
             res.status(400).send(error);
         }
+    },
+
+    getPosts: async (req,res)=>{
+        try {
+            const posts = await Post.find();
+            res.status(200).send({
+                status:200,
+                data: posts
+                
+            })
+        } catch (e) {
+            res.status(500).send()
+        }
+
     }
      
  }
