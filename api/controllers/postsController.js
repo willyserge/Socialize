@@ -21,7 +21,7 @@ const Posts={
 
     getPosts: async (req,res)=>{
         try {
-            const posts = await Post.find();
+            const posts = await Post.find().select('_id title body');
             res.status(200).send({
                 status:200,
                 data: posts
