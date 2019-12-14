@@ -25,7 +25,7 @@ const userSchema= new mongoose.Schema({
     updated:Date
     
 });
-userSchema.pre('save',async function(next){
+userSchema.pre('save',async function(){
   const user= this;
   user.password = await bcrypt.hash(user.password,8);
 })
