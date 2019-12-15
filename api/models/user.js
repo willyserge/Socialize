@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+dotenv.config();
+
 const userSchema= new mongoose.Schema({
     name:{
         type:String,
@@ -25,6 +29,14 @@ const userSchema= new mongoose.Schema({
     updated:Date
     
 });
+
+userSchema.methods.generateAuthToken = function() { 
+    const user= this;
+    const token = jwt.sign({ _id: user._id },process.env.JWT_PRIVATE_KEY);
+    return token;
+    
+  }
+
 userSchema.pre('save',async function(){
   const user= this;
   user.password = await bcrypt.hash(user.password,8);

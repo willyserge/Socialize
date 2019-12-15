@@ -14,10 +14,12 @@ const Users={
 
         try {
              await user.save();
-             res.status(201).send({
+             const token = await user.generateAuthToken();
+             res.header('x-auth-token', token).status(201).send({
                 status: 201,
                 message:'user created successfully',
                 data: [{
+                  token,
                   user: _.pick(user,['_id','name','email'])
                 }],
               });
