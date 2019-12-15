@@ -3,6 +3,6 @@ import Users from '../controllers/usersController';
 import Validate from '../validator';
 const authRouter = express.Router();
 
-authRouter.post('/signup',Users.signup);
+authRouter.post('/signup',Validate.user,Users.signup);
 
 export default authRouter;
