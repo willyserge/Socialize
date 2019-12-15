@@ -24,7 +24,7 @@ const Validate={
      next();
  },
 
- user : (req,res,next)=>{
+ signup : (req,res,next)=>{
     //validate name
     req.check('name','name is required').trim().notEmpty()
     req.check('name','name must be between less than 3 characters ').isLength({
@@ -34,6 +34,23 @@ const Validate={
     req.check('email').isEmail().withMessage('invalid email address');
     //validate password
     req.check('password').isLength({ min: 6 }).withMessage('password must be at least 6 characters long');
+
+    const errors=req.validationErrors()
+
+    if(errors){
+    const error=errors.map(err=>err.msg)[0];
+    return res.status(400).send({
+        status:400,
+        error:error
+    })
+    }
+    next();
+},
+
+ signin : (req,res,next)=>{
+    
+    //validate email
+    req.check('email').isEmail().withMessage('invalid email address');
 
     const errors=req.validationErrors()
 
