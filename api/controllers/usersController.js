@@ -28,6 +28,24 @@ const Users={
         }
     },
 
+    signin: async (req,res)=>{
+        try {
+          const user = await User.findByCredentials(req.body.email, req.body.password)
+          const token = await user.generateAuthToken()
+          res.header('x-auth-token', token).status(200).send({
+            status:200,
+            message:'User is successfully logged in',
+            data:{
+              token,
+              user: _.pick(user,['_id','name','email'])
+              
+            }
+          })
+      } catch (e) {
+          res.status(400).send()
+      }
+  }
+
      
  }
  export default Users;
