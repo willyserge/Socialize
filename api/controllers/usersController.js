@@ -6,8 +6,8 @@ const Users={
     signup: async (req,res)=>{
 
         let user = await User.findOne({ email: req.body.email });
-        if (user) return res.status(400).send({
-          status:400,
+        if (user) return res.status(403).send({
+          status:403,
           error:'Email already exists.'
         });
         user = new User(req.body);
