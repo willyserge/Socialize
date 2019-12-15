@@ -41,8 +41,11 @@ const Users={
               
             }
           })
-      } catch (e) {
-          res.status(400).send()
+      } catch (error) {
+          res.status(400).send({
+            status:400,
+            error:'invalid email or password'
+          })
       }
   }
 
