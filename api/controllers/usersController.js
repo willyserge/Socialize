@@ -86,6 +86,34 @@ getSingleUser: async (req,res)=>{
           error
       })
   }
+},
+updateUser: async (req,res)=>{
+  const _id = req.params.userId;
+  try {
+      let user = await User.findOne({_id});
+      if (!user) {
+           res.status(404).send({
+          status:404,
+          error:'User not found'
+        })
+    }
+   user = _.extend(user,req.body);
+   user.updated = Date.now();
+   await user.save();
+   res.status(200).send({
+    status: 200,
+    message:'user info updated successfully',
+    data: {
+      user: _.pick(user,['_id','name','email'])
+    },
+  });
+  } catch (error) {
+      res.status(400).send({
+          status:400,
+          error:'not authorized to perform this action'
+      })
+     
+  }
 }
    
  }
