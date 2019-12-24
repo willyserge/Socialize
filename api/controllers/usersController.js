@@ -47,7 +47,24 @@ const Users={
             error:'invalid email or password'
           })
       }
-  }
+  },
+
+  getAllUsers: async (req,res)=>{
+    try {
+        const users = await User.find().select('_id name email');
+        res.status(200).send({
+            status:200,
+            data: users
+            
+        })
+    } catch (error) {
+        res.status(500).send({
+            status:500,
+            error
+        })
+    }
+
+}
 
      
  }
