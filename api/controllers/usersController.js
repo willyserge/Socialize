@@ -63,9 +63,30 @@ const Users={
             error
         })
     }
+},
 
+getSingleUser: async (req,res)=>{
+  const _id = req.params.userId;
+  try {
+      const user = await User.findOne({_id});
+      if (!user) {
+           res.status(404).send({
+          status:404,
+          error:'User not found'
+        })
+    }
+    res.status(200).send({
+      status:200,
+      data: _.pick(user,['_id','name','email','created'])
+      
+  })
+  } catch (error) {
+      res.status(500).send({
+          status:500,
+          error
+      })
+  }
 }
-
-     
+   
  }
  export default Users;
