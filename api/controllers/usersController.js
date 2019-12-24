@@ -98,6 +98,7 @@ updateUser: async (req,res)=>{
         })
     }
    user = _.extend(user,req.body);
+   user.updated = Date.now();
    await user.save();
    res.status(200).send({
     status: 200,
