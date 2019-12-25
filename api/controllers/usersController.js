@@ -114,6 +114,32 @@ updateUser: async (req,res)=>{
       })
      
   }
+},
+deleteUser:async (req,res)=>{
+ try {
+   const user = await User.findOneAndDelete({ _id: req.params.userId});
+   if(!user){
+    res.status(404).send({
+      status:404,
+      error:'User not found'
+    })
+   }else{
+    res.status(200).send({
+      status: 200,
+      message:'user has been deleted successfully',
+      data: {
+        user: _.pick(user,['_id'])
+      },
+    });
+   }
+    
+
+ } catch (error) {
+  res.status(500).send({
+    status:500,
+    error
+});
+ }
 }
    
  }
